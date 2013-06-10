@@ -22,16 +22,16 @@ describe User do
 
   describe '.by_karma' do
     it 'returns users in order of highest-to-lowest karma' do
-      user_med   = create(:user_with_karma, :total => 500, :points => 2)
-      user_low   = create(:user_with_karma, :total => 200, :points => 2)
-      user_high  = create(:user_with_karma, :total => 800, :points => 2)
+      user_med   = create(:user_with_karma, :karma_count => 500, :points => 2)
+      user_low   = create(:user_with_karma, :karma_count => 200, :points => 2)
+      user_high  = create(:user_with_karma, :karma_count => 800, :points => 2)
 
       User.by_karma.should eq [user_high, user_med, user_low]
     end
   end
 
   describe '#total_karma' do
-    let(:user) { create(:user_with_karma, :total => 500, :points => 2) }
+    let(:user) { create(:user_with_karma, :karma_count => 500, :points => 2) }
 
     it 'returns the total karma for the user' do
       user.total_karma.should eq 500
@@ -46,6 +46,16 @@ describe User do
       user.last_name  = 'Doe'
 
       user.full_name.should eq 'John Doe'
+    end
+  end
+
+ describe '#update_karma!' do
+    let(:user) { create(:user_with_karma, :karma_count => 100, :points => 5)}
+
+    it 'update karma value in user table when new karma point is created' do
+      expect { 
+         create(:karma_point, :user => user, :value => 3)
+       }.to change {user.karma_count}.from(100).to(103)
     end
   end
 end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :karma_points
 
-  attr_accessible :first_name, :last_name, :email, :username
+  attr_accessible :first_name, :last_name, :email, :username, :karma_
 
   validates :first_name, :presence => true
   validates :last_name, :presence => true
@@ -17,8 +17,9 @@ class User < ActiveRecord::Base
             :format => {:with => /^[\w+\-.]+@[a-z\d\-.]+\.[a-z]+$/i},
             :uniqueness => {:case_sensitive => false}
 
+
   def self.by_karma
-    joins(:karma_points).group('users.id').order('SUM(karma_points.value) DESC')
+    self.order('karma_count DESC')
   end
 
   def total_karma
@@ -27,5 +28,11 @@ class User < ActiveRecord::Base
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def update_karma!
+    puts "I got called**********************"
+    self.update_attribute( :karma_count, self.total_karma)
+    puts "after the update ++++++++++++++++++++++"
   end
 end

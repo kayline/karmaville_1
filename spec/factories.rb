@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  sequence(:email)    { |i| "email_#{Time.now.to_i}@example.com" }
-  sequence(:username) { |i| "user_#{Time.now.to_i}" }
+  sequence(:email)    { |i| "email_#{i}@example.com" }
+  sequence(:username) { |i| "user_#{i}" }
 
   factory :user do
     first_name { Faker::Name.first_name }

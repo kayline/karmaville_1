@@ -1,0 +1,23 @@
+<div class="pagination">
+  <ul>
+  	<% if page == 1 %>
+	  	<li class="active"><a>First</a></li>
+	    <li class="active"><a>Prev</a></li>
+    <% else %>
+	  	<li><a href="/users">First</a></li>
+	    <li><a href=<%="/users?page=#{page-1}"%> >Prev</a></li>
+    <% end %>
+    <% 5.times do |i| %>
+	    <% if (page + i) < last %>
+		    <li><a href=<%="/users?page=#{i+page}"%>><%="#{i+page}"%></a></li>
+	    <% end %>
+    <% end %>
+    <% if page == last %>
+		    <li class="active"><a>Next</a></li>
+		    <li class="active"><a>Last</a></li>
+    <% else %>
+		    <li><a href=<%="/users?page=#{page+1}"%>>Next</a></li>
+		    <li><a href=<%="/users?page=#{last}"%>>Last</a></li>
+    <% end %>
+  </ul>
+</div>

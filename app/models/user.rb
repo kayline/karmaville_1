@@ -31,8 +31,12 @@ class User < ActiveRecord::Base
   end
 
   def update_karma!
-    puts "I got called**********************"
     self.update_attribute( :karma_count, self.total_karma)
-    puts "after the update ++++++++++++++++++++++"
   end
+
+  def self.page(page = 1, per_page)
+    page = page.to_i
+    self.limit(per_page).offset(per_page*(page.to_i-1))
+  end
+
 end

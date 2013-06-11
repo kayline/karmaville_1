@@ -7,6 +7,7 @@ gem 'bcrypt-ruby'
 
 gem 'pg'
 gem 'jquery-rails'
+# gem 'will_paginate-bootstrap'
 
 group :development do
   gem 'quiet_assets'
@@ -18,6 +19,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'faker'
   gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 group :test do
